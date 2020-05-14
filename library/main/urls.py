@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^add_composition/$', views.add_composition, name='add_composition'),
 
     path('authors/<author_id>/show/', views.show_compositions, name='show_compositions'),
-    path('authors/<author_id>/add/', views.add_translation, name='add_translation')
+    path('composition/<composition_id>/add/', views.add_translation, name='add_translation'),
+    path('composition/<composition_id>/show/', views.show_translations, name='show_translations'),
+    path('translation/<translation_id>/show/', views.show_translation, name='show_translation'),
 ]

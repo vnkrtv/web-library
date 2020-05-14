@@ -94,25 +94,47 @@ def show_compositions(request, author_id):
 
 
 @unauthenticated_user
-def add_translation(request, author_id):
+def add_translation(request, composition_id):
+    composition = Composition.objects.get(id=composition_id)
     info = {
         'title': 'Добавить перевод | Библиотека',
+        'composition': composition
     }
     if request.method == "POST":
         form = TranslationForm(request.POST)
         if form.is_valid():
-            composition = Translation.objects.create(
-                composition=form.get_composition(),
+            translation = Translation.objects.create(
+                composition=composition,
                 text=form.cleaned_data["text"],
                 translation_author=form.cleaned_data["translation_author"],
                 lang=form.get_lang())
-            composition.save()
+            translation.save()
             info['success'] = 'Перевод был успешно добавлен.'
         else:
             info['error'] = 'Форма некоректно заполнена.'
     else:
         form = TranslationForm()
         form.fields["translation_author"].initial = request.user.username
-    form.fields["composition"].choices = list(enumerate(Composition.get_by_author(author_id)))
     info['form'] = form
     return render(request, 'main/add_translation.html', info)
+
+
+@unauthenticated_user
+def show_translations(request, composition_id):
+    info = {
+        'title': 'Переводы | Библиотека',
+        'translations': Translation.get_by_composition(composition_id),
+        'composition': Composition.objects.get(id=composition_id)
+    }
+    return render(request, 'main/show_translations.html', info)
+
+
+@unauthenticated_user
+def show_translation(request, translation_id):
+    translation = Translation.objects.get(id=translation_id)
+    info = {
+        'title': 'Перевод | Библиотека',
+        'translation': translation,
+        'composition': translation.composition
+    }
+    return render(request, 'main/show_translation.html', info)

@@ -15,7 +15,7 @@
   <div class="album py-5 bg-light">
     <div class="container">
 
-      <div class="row">
+      <div class="d-flex justify-content-center">
 
       	{% for author in authors %}
         <div class="col-md-4">
@@ -31,7 +31,6 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a href="{% url 'main:show_compositions' author.id %}" class="btn btn-sm btn-outline-secondary">Произведения</a>
-                  <a href="{% url 'main:add_translation' author.id %}" class="btn btn-sm btn-outline-secondary">Добавить перевод</a>
                 </div>
               </div>
             </div>

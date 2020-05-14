@@ -64,6 +64,10 @@ class Translation(models.Model):
     def __repr__(self):
         return f'<Translation: {self.composition.name} on {self.lang}>'
 
+    @staticmethod
+    def get_by_composition(composition_id: int) -> list:
+        return list(Translation.objects.filter(composition__id=composition_id))
+
     class Meta:
         verbose_name = 'Перевод'
         verbose_name_plural = 'Переводы'

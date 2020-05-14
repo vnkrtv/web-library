@@ -4,7 +4,7 @@
   <section class="text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Новый перевод</h1>
-      <p class="lead text-muted">Добавьте новый перевод к существующему произведению. Потом вы сможете найти его вместе с остальными переводчами во вкладке произведений конкретного автора.</p>
+      <p class="lead text-muted">Добавьте новый перевод к существующему произведению. Потом вы сможете найти его вместе с остальными переводами во вкладке произведений конкретного автора.</p>
     </div>
   </section>
 
@@ -23,15 +23,10 @@
   <div class="album py-5 bg-light">
     <div class="d-flex justify-content-center">
 
-      <form action="{% url 'main:add_composition' %}" method="post">
+      <form action="{% url 'main:add_translation' composition.id %}" method="post">
       {% csrf_token %}
         <div class="form-row">
             <div class="col-md-4 mb-3">
-              <div>
-                <label for="{{ form.composition.id_for_label }}">Произведение<br>
-                {{ form.composition }}
-                </label>
-              </div>
               <div>
                 <label for="{{ form.translation_author.id_for_label }}">Автор перевода<br>
                 {{ form.translation_author }}

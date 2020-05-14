@@ -24,12 +24,8 @@ class CompositionForm(forms.Form):
 
 class TranslationForm(forms.Form):
     translation_author = forms.CharField(label='Автор перевода')
-    composition = forms.ChoiceField(label='Произведение')
     text = forms.CharField(label='Текст перевода', widget=forms.Textarea)
     lang = forms.ChoiceField(label='Язык перевода', choices=LANGUAGES)
-
-    def get_composition(self):
-        return Author.objects.get(id=int(self.cleaned_data['composition']))
 
     def get_lang(self):
         lang_dict = dict(LANGUAGES)

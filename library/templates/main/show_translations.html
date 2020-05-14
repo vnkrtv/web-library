@@ -1,0 +1,41 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">{{ composition.name }}</h1>
+      <p class="lead text-muted">Язык оригинала - {{ composition.lang }}</p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Автор</th>
+                <th>Язык</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for translation in translations %}
+            
+              <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ translation.translation_author }}</td>
+                <td>{{ translation.lang }}</td>
+                <td><a href="{% url 'main:show_translation' translation.id %}" class="btn btn-secondary btn-sm">Просмотреть</a></td>
+              </tr>
+            
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+  </div>
+{% endblock %}
