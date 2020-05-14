@@ -16,6 +16,9 @@ class Author(models.Model):
     def __repr__(self):
         return f'<Author: {self.name}>'
 
+    def __str__(self):
+        return self.name
+
     @staticmethod
     def get_names() -> list:
         return [(author.id, author.name) for author in Author.objects.all()]

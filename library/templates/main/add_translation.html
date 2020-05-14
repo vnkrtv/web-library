@@ -1,9 +1,17 @@
 {% extends "main/base.html" %}
 
 {% block content %}
+  <section class="text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Новый перевод</h1>
+      <p class="lead text-muted">Добавьте новый перевод к существующему произведению. Потом вы сможете найти его вместе с остальными переводчами во вкладке произведений конкретного автора.</p>
+    </div>
+  </section>
+
+  </div>
   {% if error %}
   <div class="alert alert-danger" role="alert">
-      {{ error }} Name: {{ form.name.errors }} Info: {{ form.info.errors }} Image: {{ form.image.errors }}
+      {{ error }}
   </div>                    
   {% endif %}
   {% if success %}
@@ -11,8 +19,10 @@
       {{ success }}
   </div>                    
   {% endif %}
-  <section class="jumbotron">
-      <h5 class="jumbotron-heading">Новый перевод</h5>
+
+  <div class="album py-5 bg-light">
+    <div class="d-flex justify-content-center">
+
       <form action="{% url 'main:add_composition' %}" method="post">
       {% csrf_token %}
         <div class="form-row">
@@ -41,5 +51,7 @@
           </div>
           <input type="submit" value="Добавить" class="btn btn-primary my-2">
         </form>
-  </section>
+
+    </div>
+  </div>
 {% endblock %}

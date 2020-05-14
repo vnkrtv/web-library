@@ -1,57 +1,46 @@
 {% extends "main/base.html" %}
 
 {% block content %}
- 	<section class="jumbotron text-center">
-        <div class="container">
-          <h1 class="jumbotron-heading">Библиотека</h1>
-          <p class="lead text-muted">Тут будет классное описание того, что это такое и зачем оно вообще нужно.</p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">Какое-то действие</a>
-            <a href="#" class="btn btn-secondary my-2">Другое действие</a>
-          </p>
-        </div>
-      </section>
+ 	<section class="text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Библиотека переводов</h1>
+      <p class="lead text-muted">Библиотека переводов - это не просто тупое название. Это возможность поделиться со всеми своими переводами произведений любимых авторов.</p>
+      <p>
+        <a href="{% url 'main:add_author' %}" class="btn btn-primary my-2">Добавить автора</a>
+        <a href="{% url 'main:add_composition' %}" class="btn btn-secondary my-2">Добавить произведение</a>
+      </p>
+    </div>
+  </section>
 
-      <div class="album py-5 bg-light">
-        <div class="container">
+  <div class="album py-5 bg-light">
+    <div class="container">
 
-          <div class="row">
+      <div class="row">
 
-          	{% for author in authors %}
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                {% if author.image %}
-                <img class="card-img-top" src="{{ author.image.url }}" height="400" alt="Card image cap">
-                {% else %}
-                <img class="card-img-top" src="/media/authors/unnamed.jpg" height="400" alt="Card image cap">
-                {% endif %}
-                <div class="card-body">
-                  <p class="card-text">{{ author.name }}</p>
-                  <p class="card-text">{{ author.info }}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href="{% url 'main:show_compositions' author.id %}" class="btn btn-sm btn-outline-secondary">Произведения</a>
-                      <a href="{% url 'main:add_translation' author.id %}" class="btn btn-sm btn-outline-secondary">Добавить перевод</a>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
+      	{% for author in authors %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            {% if author.image %}
+            <img class="card-img-top" src="{{ author.image.url }}" height="400" width="100" alt="Card image cap">
+            {% else %}
+            <img class="card-img-top" src="/media/authors/unnamed.jpg" height="400" width="100" alt="Card image cap">
+            {% endif %}
+            <div class="card-body">
+              <p class="card-text">{{ author.name }}</p>
+              <p class="card-text">{{ author.info }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{% url 'main:show_compositions' author.id %}" class="btn btn-sm btn-outline-secondary">Произведения</a>
+                  <a href="{% url 'main:add_translation' author.id %}" class="btn btn-sm btn-outline-secondary">Добавить перевод</a>
                 </div>
               </div>
             </div>
-            {% endfor %}
-
           </div>
-
         </div>
+        {% endfor %}
+
       </div>
 
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Наверх</a>
-        </p>
-        <p>Здесь можно запихнуть какое-нибудь описание.</p>
-        <p>А тут будет ссылка на проект <a href="https://github.com/LeadNess/web-library">на гитхабе</a>.</p>
-      </div>
-    </footer>
+    </div>
+  </div>
 {% endblock %}

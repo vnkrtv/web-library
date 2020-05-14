@@ -1,6 +1,15 @@
 {% extends "main/base.html" %}
 
 {% block content %}
+
+  <section class="text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Новый автор</h1>
+      <p class="lead text-muted">Добавьте нового автора в базу, чтобы иметь возможности добавлять его произведения в базу.</p>
+    </div>
+  </section>
+
+  </div>
   {% if error %}
   <div class="alert alert-danger" role="alert">
       {{ error }}
@@ -11,8 +20,10 @@
       {{ success }}
   </div>                    
   {% endif %}
- 	<section class="jumbotron"> 
-      <h5 class="jumbotron-heading">Новый автор</h5>
+
+  <div class="album py-5 bg-light">
+    <div class="d-flex justify-content-center">
+
       <form action="{% url 'main:add_author' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
         <div class="form-row">
@@ -30,5 +41,8 @@
           </div>
           <input type="submit" value="Добавить" class="btn btn-primary my-2">
         </form>
-  </section>
+
+    </div>
+  </div>
+
 {% endblock %}

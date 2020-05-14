@@ -86,10 +86,10 @@ def add_composition(request):
 @unauthenticated_user
 def show_compositions(request, author_id):
     info = {
-        'title': f'Произведения {Author.objects.get(id=author_id)} | Библиотека',
-        'info': author_id
+        'title': f'{Author.objects.get(id=author_id)} | Библиотека',
+        'compositions': Composition.get_by_author(author_id),
+        'author': Author.objects.get(id=author_id)
     }
-
     return render(request, 'main/show_compositions.html', info)
 
 
