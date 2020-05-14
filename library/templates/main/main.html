@@ -1,0 +1,53 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+ 	<section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Библиотека</h1>
+          <p class="lead text-muted">Тут будет классное описание того, что это такое и зачем оно вообще нужно.</p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">Какое-то действие</a>
+            <a href="#" class="btn btn-secondary my-2">Другое действие</a>
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+
+          	{% for author in authors %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" data-src="{{ author.photo }}" alt="Card image cap">
+                <div class="card-body">
+                  <p class="card-text">{{ author.name }}</p>
+                  <p class="card-text">{{ author.info }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+      </div>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Наверх</a>
+        </p>
+        <p>Здесь можно запихнуть какое-нибудь описание.</p>
+        <p>А тут будет ссылка на проект <a href="https://github.com/LeadNess/web-library">на гитхабе</a>.</p>
+      </div>
+    </footer>
+{% endblock %}

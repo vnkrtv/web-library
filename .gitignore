@@ -1,0 +1,4 @@
+.idea
+venv
+library/main/migrations
+*pyc
