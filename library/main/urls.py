@@ -8,6 +8,7 @@ app_name = 'main'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login/$', views.login_page, name='login_page'),
+    url(r'^search/$', views.search, name='search'),
     url(r'^add_author/$', views.add_author, name='add_author'),
     url(r'^add_composition/$', views.add_composition, name='add_composition'),
 

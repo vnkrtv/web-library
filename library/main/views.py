@@ -37,6 +37,20 @@ def index(request):
 
 
 @unauthenticated_user
+def search(request):
+    if request.method == "POST":
+        q = request.POST['q']
+        info = {
+            'title': 'Результаты поиска | Библиотека',
+            'compositions': Composition.objects.filter(name__contains=q),
+            'q': q
+        }
+        return render(request, 'main/search.html', info)
+
+    return redirect('/')
+
+
+@unauthenticated_user
 def add_author(request):
     info = {
         'title': 'Добавить автора | Библиотека',

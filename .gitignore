@@ -3,4 +3,5 @@ venv
 library/main/migrations
 library/media
 !library/media/authors/unnamed.jpg
+!library/media/logo.png
 *pyc

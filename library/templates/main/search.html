@@ -1,0 +1,50 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+  {% if compositions %}
+  <section class="text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Результаты поиска</h1>
+      <p class="lead text-muted">По запросу '{{ q }}' были найдены следующие произведения:</p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Название</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for composition in compositions %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ composition.name }}</td>
+              <td><a type="button" href="{% url 'main:show_translations' composition.id %}" class="btn btn-primary btn-sm">Показать переводы</a></td>
+              <td><a type="button" href="{% url 'main:add_translation' composition.id %}" class="btn btn-secondary btn-sm">Добавить перевод</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+  </div>
+  {% else %}    
+  <section class="text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Результаты поиска</h1>
+      <p class="lead text-muted">Произведения по запросу '{{ q }}' не были найдены.</p>
+    </div>
+  </section>
+  {% endif %}
+
+{% endblock %}

@@ -35,11 +35,12 @@
           <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
               <h4 class="text-white">Поиск</h4>
-              <p class="text-muted">Поиск осуществляется по всем произведениям, которые содержатся в базе библиотеки. (Пока не работает)</p>
+              <p class="text-muted">Поиск осуществляется по всем произведениям, которые содержатся в базе библиотеки.</p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
-              <form action="{% url 'main:search' %}" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Поиск по произведениям" aria-label="Search">
+              <form action="{% url 'main:search' %}" method='post' class="form-inline my-2 my-lg-0">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" name='q' type="text" placeholder="Поиск по произведениям" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Искать</button>
               </form>
             </div>
