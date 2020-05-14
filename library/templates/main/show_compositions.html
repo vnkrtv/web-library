@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+      {{ error }} Name: {{ form.name.errors }} Info: {{ form.info.errors }} Image: {{ form.image.errors }}
+  </div>                    
+  {% endif %}
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+      {{ success }}
+  </div>                    
+  {% endif %}
+  {{ info }}
+{% endblock %}

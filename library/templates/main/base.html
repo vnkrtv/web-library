@@ -19,6 +19,13 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/sidebar.css' %}" rel="stylesheet">
     <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
+    <style type="text/css">
+      img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+          }
+    </style>
   </head>
 
 <body>
@@ -34,9 +41,8 @@
       </div>
       <div class="sidebar-heading">Действия</div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Добавить автора</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Добавить произведение</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Добавить перевод</a>
+        <a href="{% url 'main:add_author' %}" class="list-group-item list-group-item-action bg-light">Добавить автора</a>
+        <a href="{% url 'main:add_composition' %}" class="list-group-item list-group-item-action bg-light">Добавить произведение</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -54,7 +60,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Главная страница <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'main:index' %}">Главная страница <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Ссылка</a>
@@ -80,17 +86,12 @@
 
       <div class="container-fluid">
         <br>
-        {% for message in messages %}
-        <div class="alert alert-danger" role="alert">
-            {{ message }}
-        </div>                    
-        {% endfor %}
-
         {% block content %}
         {% endblock content %}
       </div>
 
     </div>
+
     <!-- /#page-content-wrapper -->
 
   </div>

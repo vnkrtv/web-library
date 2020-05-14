@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+      {{ error }} Name: {{ form.name.errors }} Info: {{ form.info.errors }} Image: {{ form.image.errors }}
+  </div>                    
+  {% endif %}
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+      {{ success }}
+  </div>                    
+  {% endif %}
+  <section class="jumbotron">
+      <h5 class="jumbotron-heading">Новый перевод</h5>
+      <form action="{% url 'main:add_composition' %}" method="post">
+      {% csrf_token %}
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <div>
+                <label for="{{ form.composition.id_for_label }}">Произведение<br>
+                {{ form.composition }}
+                </label>
+              </div>
+              <div>
+                <label for="{{ form.translation_author.id_for_label }}">Автор перевода<br>
+                {{ form.translation_author }}
+                </label>                
+              </div>
+              <div>
+                <label for="{{ form.lang.id_for_label }}">Язык перевода<br>
+                {{ form.lang }}
+                </label>
+              </div>
+              <div>
+                <label for="{{ form.text.id_for_label }}">Перевод<br>
+                {{ form.text }}
+                </label>
+              </div>          
+            </div>
+          </div>
+          <input type="submit" value="Добавить" class="btn btn-primary my-2">
+        </form>
+  </section>
+{% endblock %}
