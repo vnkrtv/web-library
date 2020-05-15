@@ -9,30 +9,28 @@
   </section>
 
   <div class="album py-5 bg-light">
-    <div class="container">
 
-      <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
 
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-              <p class="card-text"><strong>Перевод</strong></p>
-              <p class="card-text">{{ translation.text }}</p>
-            </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <p class="card-text"><strong>Перевод</strong></p>
+            <p class="card-text" style="white-space: pre-line">{{ translation.text }}</p>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-              <p class="card-text"><strong>Оригинал</strong></p>
-              <p class="card-text">{{ composition.text }}</p>
-            </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <p class="card-text"><strong>Оригинал</strong></p>
+            <p class="card-text" style="white-space: pre-line">{{ composition.text }}</p>
           </div>
         </div>
-
       </div>
 
     </div>
+
   </div>
 {% endblock %}

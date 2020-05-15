@@ -28,31 +28,35 @@
 
       <form action="{% url 'main:add_composition' %}" method="post">
       {% csrf_token %}
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <div>
-                <label for="{{ form.name.id_for_label }}">Имя<br>
-                {{ form.name }}
-                </label>
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <div>
+                    <label for="{{ form.name.id_for_label }}">Имя<br>
+                    {{ form.name }}
+                    </label>
+                  </div>
+                  <div>
+                    <label for="{{ form.author.id_for_label }}">Автор<br>
+                    {{ form.author }}
+                    </label>
+                  </div>
+                  <div>
+                    <label for="{{ form.text.id_for_label }}">Оригинал<br>
+                    {{ form.text }}
+                    </label>
+                  </div>
+                  <div>
+                    <label for="{{ form.lang.id_for_label }}">Язык оригинала<br>
+                    {{ form.lang }}
+                    </label>  
+                  </div>         
+                </div>
               </div>
-              <div>
-                <label for="{{ form.author.id_for_label }}">Автор<br>
-                {{ form.author }}
-                </label>
-              </div>
-              <div>
-                <label for="{{ form.text.id_for_label }}">Оригинал<br>
-                {{ form.text }}
-                </label>
-              </div>
-              <div>
-                <label for="{{ form.lang.id_for_label }}">Язык оригинала<br>
-                {{ form.lang }}
-                </label>  
-              </div>         
+              <input type="submit" value="Добавить" class="btn btn-primary my-2">
             </div>
           </div>
-          <input type="submit" value="Добавить" class="btn btn-primary my-2">
         </form>
 
     </div>

@@ -25,26 +25,30 @@
 
       <form action="{% url 'main:add_translation' composition.id %}" method="post">
       {% csrf_token %}
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <div>
-                <label for="{{ form.translation_author.id_for_label }}">Автор перевода<br>
-                {{ form.translation_author }}
-                </label>                
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <div>
+                    <label for="{{ form.translation_author.id_for_label }}">Автор перевода<br>
+                    {{ form.translation_author }}
+                    </label>                
+                  </div>
+                  <div>
+                    <label for="{{ form.lang.id_for_label }}">Язык перевода<br>
+                    {{ form.lang }}
+                    </label>
+                  </div>
+                  <div>
+                    <label for="{{ form.text.id_for_label }}">Перевод<br>
+                    {{ form.text }}
+                    </label>
+                  </div>          
+                </div>
               </div>
-              <div>
-                <label for="{{ form.lang.id_for_label }}">Язык перевода<br>
-                {{ form.lang }}
-                </label>
-              </div>
-              <div>
-                <label for="{{ form.text.id_for_label }}">Перевод<br>
-                {{ form.text }}
-                </label>
-              </div>          
+              <input type="submit" value="Добавить" class="btn btn-primary my-2">
             </div>
           </div>
-          <input type="submit" value="Добавить" class="btn btn-primary my-2">
         </form>
 
     </div>

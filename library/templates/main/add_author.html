@@ -26,23 +26,28 @@
 
       <form action="{% url 'main:add_author' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
-        <div class="form-row">
-            <div class="col-md-4 mb-3">
-              <label for="{{ form.name.id_for_label }}">Имя<br>
-                {{ form.name }}
-              </label>
-              <label for="{{ form.info.id_for_label }}">Справка<br>
-                {{ form.info }}
-              </label>
-              <label for="{{ form.image.id_for_label }}">Изображение<br>
-                {{ form.image }}
-              </label>          
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="{{ form.name.id_for_label }}">Имя<br>
+                    {{ form.name }}
+                  </label>
+                  <label for="{{ form.info.id_for_label }}">Справка<br>
+                    {{ form.info }}
+                  </label>
+                  <label for="{{ form.image.id_for_label }}">Изображение<br>
+                    {{ form.image }}
+                  </label>          
+                </div>
+              </div>
+              <input type="submit" value="Добавить" class="btn btn-primary my-2">
             </div>
           </div>
-          <input type="submit" value="Добавить" class="btn btn-primary my-2">
         </form>
 
     </div>
   </div>
+
 
 {% endblock %}
