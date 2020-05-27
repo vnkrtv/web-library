@@ -1,16 +1,31 @@
 {% extends "main/base.html" %}
 
 {% block content %}
+
+{% load static %}
+
  	<section class="text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Библиотека переводов</h1>
       <p class="lead text-muted">Библиотека переводов - это не просто тупое название. Это возможность поделиться со всеми своими переводами произведений любимых авторов.</p>
       <p>
-        <a href="{% url 'main:add_author' %}" class="btn btn-primary my-2">Добавить автора</a>
-        <a href="{% url 'main:add_composition' %}" class="btn btn-secondary my-2">Добавить произведение</a>
+        <a href="#" data-modal="author-modal" class="btn btn-primary my-2 js-open-modal">Добавить автора</a>
+        <a href="#" data-modal="composition-modal" class="btn btn-primary my-2 js-open-modal">Добавить произведение</a>
       </p>
     </div>
   </section>
+
+  </div>
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+      {{ error }}
+  </div>                    
+  {% endif %}
+  {% if success %}
+  <div class="alert alert-success" role="alert">
+      {{ success }}
+  </div>                    
+  {% endif %}
 
   <div class="album py-5 bg-light">
     <div class="container">
@@ -30,7 +45,7 @@
               <p class="card-text">{{ author.info }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a href="{% url 'main:show_compositions' author.id %}" class="btn btn-sm btn-outline-secondary">Произведения</a>
+                  <a href="{% url 'main:compositions' author.id %}" class="btn btn-sm btn-outline-secondary">Произведения</a>
                 </div>
               </div>
             </div>
@@ -42,4 +57,84 @@
 
     </div>
   </div>
+
+  <div class="modal-window" data-modal="author-modal">
+   <img class="modal__cross js-modal-close" src="{% static 'main/image/close.svg' %}">
+   <h4>Новый автор</h4>
+   <p class="lead text-muted">Добавьте нового автора, чтобы иметь возможности добавлять переводы его произведений.</p>
+   <hr class="my hr4">
+    <form action="{% url 'main:index' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+          <label for="{{ form.name.id_for_label }}">Имя<br>
+            {{ author_form.name }}
+          </label>
+          <label for="{{ form.info.id_for_label }}">Справка<br>
+            {{ author_form.info }}
+          </label>
+          <label for="{{ form.image.id_for_label }}">Изображение<br>
+            {{ author_form.image }}
+          </label>         
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary js-modal-close">Отмена</button>
+        <input type="submit" name="add_author" value="Добавить" class="btn btn-outline-primary my-2"> 
+      </div>
+    </form>
+  </div>
+
+<div class="modal-window" data-modal="composition-modal">
+   <img class="modal__cross js-modal-close" src="{% static 'main/image/close.svg' %}">
+   <h4>Новое произведение</h4>
+   <p class="lead text-muted">Добавьте произведение, чтобы иметь возможность добавлять его переводы.</p>
+   <hr class="my hr4">
+    <form action="{% url 'main:index' %}" method="post">
+    {% csrf_token %}
+      <div>
+        <label for="{{ form.name.id_for_label }}">Имя<br>
+        {{ comp_form.name }}
+        </label>
+      </div>
+      <div>
+        <label for="{{ form.author.id_for_label }}">Автор<br>
+        {{ comp_form.author }}
+        </label>
+      </div>
+      <div>
+        <label for="{{ form.text.id_for_label }}">Оригинал<br>
+        {{ comp_form.text }}
+        </label>
+      </div>
+      <div>
+        <label for="{{ form.lang.id_for_label }}">Язык оригинала<br>
+        {{ comp_form.lang }}
+        </label>  
+      </div>         
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary js-modal-close">Отмена</button>
+        <input type="submit" name="add_composition" value="Добавить" class="btn btn-outline-primary my-2">
+      </div>
+    </form>
+</div>
+
+<!-- Подложка под модальным окном -->
+<div class="overlay js-overlay-modal"></div>
+
+<script type="text/javascript">
+    window.scroll({
+    top: 2500, 
+    left: 0, 
+    behavior: 'smooth'
+  });
+
+  // Scroll certain amounts from current position 
+  window.scrollBy({ 
+    top: 100, // could be negative value
+    left: 0, 
+    behavior: 'smooth' 
+  });
+
+  // Scroll to a certain element
+  document.getElementById('navbarHeader').scrollIntoView({ 
+    behavior: 'smooth' 
+  });
+</script>
 {% endblock %}

@@ -1,14 +1,23 @@
 from django import forms
-from .models import LANGUAGES, Author, Composition
+from .models import LANGUAGES, Author
 
 
-class AuthorForm(forms.Form):
+class BaseForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super(BaseForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            if visible.name != 'image':
+                visible.field.widget.attrs['class'] = 'form-control'
+
+
+class AuthorForm(BaseForm):
     name = forms.CharField(label='Имя', max_length=100, required=True)
     info = forms.CharField(label='Справка', widget=forms.Textarea)
     image = forms.ImageField(label='Фотография')
 
 
-class CompositionForm(forms.Form):
+class CompositionForm(BaseForm):
     author = forms.ChoiceField(label='Автор', choices=Author.get_names())
     name = forms.CharField(label='Название')
     text = forms.CharField(label='Оригинал', widget=forms.Textarea)
@@ -22,7 +31,7 @@ class CompositionForm(forms.Form):
         return lang_dict[self.cleaned_data['lang']]
 
 
-class TranslationForm(forms.Form):
+class TranslationForm(BaseForm):
     translation_author = forms.CharField(label='Автор перевода')
     text = forms.CharField(label='Текст перевода', widget=forms.Textarea)
     lang = forms.ChoiceField(label='Язык перевода', choices=LANGUAGES)

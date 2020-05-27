@@ -14,18 +14,16 @@
     
     {% load static %}
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/sidebar.css' %}" rel="stylesheet">
-    <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
-    <style type="text/css">
-      img {
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-          }
-    </style>
+    <link href="{% static 'main/css/sidebar.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/modal-window.css' %}" rel="stylesheet">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+
   </head>
 
 <body>
@@ -58,7 +56,7 @@
         <div class="d-flex justify-content-between">
           <a href="" class="navbar-brand d-flex align-items-center">{{ user.username }}</a>
           <a href="{% url 'main:login_page' %}" class="navbar-brand d-flex align-items-center">Выйти</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" onclick="document.getElementById('navbarHeader').classList.toggle('collapse')">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
@@ -80,10 +78,7 @@
       </div>
     </footer-->
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-
+    <script src="{% static 'main/js/modal-window.js' %}"></script>
 
 </body>
 

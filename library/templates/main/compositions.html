@@ -1,0 +1,87 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<section class="text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">{{ author.name }}</h1>
+      <p class="lead text-muted">{{ author.info }}</p>
+    </div>
+</section>
+
+</div>
+{% if error %}
+<div class="alert alert-danger" role="alert">
+    {{ error }}
+</div>                    
+{% endif %}
+{% if success %}
+<div class="alert alert-success" role="alert">
+    {{ success }}
+</div>                    
+{% endif %}
+
+<div class="album py-5 bg-light">
+  <div class="container">
+
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Название</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for composition in compositions %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ composition.name }}</td>
+            <td><a type="button" href="{% url 'main:show_translations' composition.id %}" class="btn btn-primary btn-sm">Показать переводы</a></td>
+            <td><a type="button" href="#" data-modal="translation-modal" class="btn btn-secondary btn-sm js-open-modal">Добавить перевод</a></td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+  </div>
+</div>
+
+<div class="modal-window" data-modal="translation-modal">
+   <img class="modal__cross js-modal-close" src="{% static 'main/image/close.svg' %}">
+   <h4>Новый перевод</h4>
+   <hr class="my hr4">
+    <form action="{{ request.path }}" method="post">
+    {% csrf_token %}
+      <div>
+        <label for="{{ form.translation_author.id_for_label }}">Автор перевода<br>
+        {{ form.translation_author }}
+        </label>                
+      </div>
+      <div>
+        <label for="{{ form.lang.id_for_label }}">Язык перевода<br>
+        {{ form.lang }}
+        </label>
+      </div>
+      <div>
+        <label for="{{ form.text.id_for_label }}">Перевод<br>
+        {{ form.text }}
+        </label>
+      </div>
+      <input type="hidden" name="composition_id" value="">                   
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary js-modal-close">Отмена</button>
+        <input type="submit" name="add_composition" value="Добавить" class="btn btn-outline-primary my-2">
+      </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+  
+</script>
+{% endblock %}

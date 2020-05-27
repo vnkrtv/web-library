@@ -6,14 +6,11 @@ from . import views
 app_name = 'main'
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^login/$', views.login_page, name='login_page'),
     url(r'^search/$', views.search, name='search'),
-    url(r'^add_author/$', views.add_author, name='add_author'),
-    url(r'^add_composition/$', views.add_composition, name='add_composition'),
 
-    path('authors/<author_id>/show/', views.show_compositions, name='show_compositions'),
-    path('composition/<composition_id>/add/', views.add_translation, name='add_translation'),
+    path('authors/<author_id>/', views.CompositionsView.as_view(), name='compositions'),
     path('composition/<composition_id>/show/', views.show_translations, name='show_translations'),
     path('translation/<translation_id>/show/', views.show_translation, name='show_translation'),
 ]
