@@ -17,6 +17,6 @@ COPY library /library
 COPY deploy/container_settings /library/library/settings.py
 COPY deploy/migrations /migrations
 
-COPY entrypoint.sh /entrypoint.sh
+COPY deploy/entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh
 CMD ["/bin/sh", "/entrypoint.sh"]

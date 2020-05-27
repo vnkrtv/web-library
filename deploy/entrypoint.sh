@@ -16,4 +16,5 @@ cp -r /library /code
 python /code/library/manage.py makemigrations
 python /code/library/manage.py migrate
 
+echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', '', 'admin')" | python /code/library/manage.py shell
 python /code/library/manage.py runserver 0.0.0.0:8080
