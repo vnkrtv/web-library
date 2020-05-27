@@ -1,0 +1,25 @@
+.hide-search {
+  position: relative;
+  animation: up 0.8s infinite forwards;
+}
+
+.show-search {
+  position: relative;
+  animation: down 0.8s infinite forwards;
+}
+
+#body {
+  scroll-behavior: smooth;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+}
+
+@keyframes up {
+  from {top: 0px;}
+  to {top: -149px;}
+}
+
+@keyframes down {
+  from {top: -149px;}
+  to {top: 0px;}
+}

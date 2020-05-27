@@ -24,7 +24,7 @@
             <tbody>
             {% for translation in translations %}
             
-              <tr>
+              <tr title='{{ translation.text }}'>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ translation.translation_author }}</td>
                 <td>{{ translation.lang }}</td>

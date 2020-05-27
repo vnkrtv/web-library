@@ -64,6 +64,9 @@ class Translation(models.Model):
     def __repr__(self):
         return f'<Translation: {self.composition.name} on {self.lang}>'
 
+    def __str__(self):
+        return f'Перевод {self.composition.name} на {self.lang}, автор -  {self.translation_author}'
+
     @staticmethod
     def get_by_composition(composition_id: int) -> list:
         return list(Translation.objects.filter(composition__id=composition_id))

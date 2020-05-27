@@ -29,7 +29,7 @@
               <th scope="row">{{ forloop.counter }}</th>
               <td>{{ composition.name }}</td>
               <td><a type="button" href="{% url 'main:show_translations' composition.id %}" class="btn btn-primary btn-sm">Показать переводы</a></td>
-              <td><a type="button" href="{% url 'main:add_translation' composition.id %}" class="btn btn-secondary btn-sm">Добавить перевод</a></td>
+              <td><a type="button" href="{% url 'main:compositions' composition.author.id %}" class="btn btn-secondary btn-sm">Перейти к автору</a></td>
             </tr>
             {% endfor %}
             </tbody>

@@ -7,26 +7,6 @@ from .models import Author, Composition, Translation
 from .forms import AuthorForm, CompositionForm, TranslationForm
 
 
-def login_page(request):
-    """
-    In case of successful authorization redirect to get_tests page, else displays login page with error
-    """
-    logout(request)
-    if 'username' not in request.POST or 'password' not in request.POST:
-        return render(request, 'main/login.html')
-    user = authenticate(
-        username=request.POST['username'],
-        password=request.POST['password'])
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            return redirect('/')
-        else:
-            return render(request, 'main/login.html', {'error': 'Ошибка: аккаунт пользователя отключен!'})
-    else:
-        return render(request, 'main/login.html', {'error': 'Ошибка: неправильное имя пользователя или пароль!'})
-
-
 class IndexView(View):
     template = 'main/main.html'
     title = 'Главная страница | Библиотека'
@@ -134,6 +114,26 @@ class CompositionsView(View):
         return render(request, self.template, self.context)
 
 
+def login_page(request):
+    """
+    In case of successful authorization redirect to get_tests page, else displays login page with error
+    """
+    logout(request)
+    if 'username' not in request.POST or 'password' not in request.POST:
+        return render(request, 'main/login.html')
+    user = authenticate(
+        username=request.POST['username'],
+        password=request.POST['password'])
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return redirect('/')
+        else:
+            return render(request, 'main/login.html', {'error': 'Ошибка: аккаунт пользователя отключен!'})
+    else:
+        return render(request, 'main/login.html', {'error': 'Ошибка: неправильное имя пользователя или пароль!'})
+
+
 @unauthenticated_user
 def search(request):
     if request.method == "POST":
@@ -165,7 +165,7 @@ def show_translations(request, composition_id):
         'translations': Translation.get_by_composition(composition_id),
         'composition': Composition.objects.get(id=composition_id)
     }
-    return render(request, 'main/show_translations.html', info)
+    return render(request, 'main/translations.html', info)
 
 
 @unauthenticated_user

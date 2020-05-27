@@ -42,7 +42,7 @@
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ composition.name }}</td>
             <td><a type="button" href="{% url 'main:show_translations' composition.id %}" class="btn btn-primary btn-sm">Показать переводы</a></td>
-            <td><a type="button" href="#" data-modal="translation-modal" class="btn btn-secondary btn-sm js-open-modal">Добавить перевод</a></td>
+            <td><a type="button" href="#" data-modal="translation-modal" onclick="setComposition({{ composition.id }}, '{{ composition.name }}')" class="btn btn-secondary btn-sm js-open-modal">Добавить перевод</a></td>
           </tr>
           {% endfor %}
           </tbody>
@@ -54,7 +54,7 @@
 
 <div class="modal-window" data-modal="translation-modal">
    <img class="modal__cross js-modal-close" src="{% static 'main/image/close.svg' %}">
-   <h4>Новый перевод</h4>
+   <h4 id='header'>Новый перевод</h4>
    <hr class="my hr4">
     <form action="{{ request.path }}" method="post">
     {% csrf_token %}
@@ -73,15 +73,14 @@
         {{ form.text }}
         </label>
       </div>
-      <input type="hidden" name="composition_id" value="">                   
+      <input type="hidden" id="composition_id" name="composition_id" value="">                   
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary js-modal-close">Отмена</button>
-        <input type="submit" name="add_composition" value="Добавить" class="btn btn-outline-primary my-2">
+        <input type="submit" name="add_translation" value="Добавить" class="btn btn-outline-primary my-2">
       </div>
     </form>
 </div>
 
-<script type="text/javascript">
-  
-</script>
+<script src="{% static 'main/js/compositions.js' %}"></script>
+
 {% endblock %}

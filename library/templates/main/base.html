@@ -6,6 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
+    <!-- Leadness, 2020 -->
+    <!-- https://github.com/LeadNess/web-library -->
+    
     {% if title %}
     <title>{{ title }}</title>
     {% else %} 
@@ -19,6 +22,7 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'main/css/sidebar.css' %}" rel="stylesheet">
     <link href="{% static 'main/css/modal-window.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/search-header.css' %}" rel="stylesheet">
 
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
@@ -26,9 +30,9 @@
 
   </head>
 
-<body>
+<body id='body'>
   <header>
-    <div class="collapse bg-dark" id="navbarHeader">
+    <div class="bg-dark" id="navbarHeader">
       <div class="container">
           <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
@@ -56,7 +60,7 @@
         <div class="d-flex justify-content-between">
           <a href="" class="navbar-brand d-flex align-items-center">{{ user.username }}</a>
           <a href="{% url 'main:login_page' %}" class="navbar-brand d-flex align-items-center">Выйти</a>
-          <button class="navbar-toggler" type="button" onclick="document.getElementById('navbarHeader').classList.toggle('collapse')">
+          <button class="navbar-toggler" type="button" onclick="displaySearchHeader()">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
@@ -78,8 +82,14 @@
       </div>
     </footer-->
 
-    <script src="{% static 'main/js/modal-window.js' %}"></script>
-
 </body>
+
+<script src="{% static 'main/js/modal-window.js' %}"></script>
+<script src="{% static 'main/js/main.js' %}"></script>
+<script type="text/javascript">
+    let body = document.getElementById('body');
+    let counter = 0;
+    document.getElementById('navbarHeader').style.display = "none";
+</script>
 
 </html>
