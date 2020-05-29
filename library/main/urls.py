@@ -11,6 +11,6 @@ urlpatterns = [
     url(r'^search/$', views.search, name='search'),
 
     path('authors/<author_id>/', views.CompositionsView.as_view(), name='compositions'),
-    path('composition/<composition_id>/show/', views.show_translations, name='show_translations'),
-    path('translation/<translation_id>/show/', views.show_translation, name='show_translation'),
+    path('composition/<composition_id>', views.translations, name='translations'),
+    path('translation/<translation_id>', views.show_translation, name='show_translation'),
 ]

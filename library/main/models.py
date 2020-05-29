@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 LANGUAGES = [
         ('ru', 'Русский'),
@@ -6,7 +7,6 @@ LANGUAGES = [
         ('de', 'Немецкий'),
         ('fr', 'Французский')
     ]
-
 
 class Author(models.Model):
     name = models.CharField('Автор', max_length=100)
@@ -18,10 +18,6 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
-
-    @staticmethod
-    def get_names() -> list:
-        return [(author.id, author.name) for author in Author.objects.all()]
 
     class Meta:
         verbose_name = 'Автор'
@@ -57,8 +53,12 @@ class Translation(models.Model):
         Composition,
         on_delete=models.CASCADE,
         verbose_name='Произведение')
+    translation_author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name='Автор')
     text = models.TextField('Перевод')
-    translation_author = models.CharField('Автор перевода', max_length=100, default='Anonymous')
     lang = models.CharField('Язык', max_length=100, choices=LANGUAGES, default='ru')
 
     def __repr__(self):

@@ -16,4 +16,24 @@ All data stored in PostgreSQL, web app implemented in Django.
 - ```cd web-library```
 - ```./deploy/deploy_containers```
 
-Collects container with app, configure it and configure docker-composite. If allowed will be added as a service in systemd as ```translation-lib.service```.
+Collects container with app, configure it and configure docker-compose. If allowed will be added as a service in systemd as ```translation-lib.service```.
+
+### Testing    
+Run all tests with coverage by running (venv must be activated):   
+- ```coverage run quizer/manage.py test main```
+
+#### coverage   
+```
+Name                         Stmts   Miss  Cover
+------------------------------------------------
+library/main/decorators.py       8      0   100%
+library/main/forms.py           28      1    96%
+library/main/models.py          44      5    89%
+library/main/views.py           86      1    99%
+------------------------------------------------
+TOTAL                          166      7    96%
+```
+For detailed report run:
+- ```coverage report```  
+- ```coverage html```  
+- ```x-www-browser ./htmlcov/index.html``` for Linux or ```Invoke-Expression .\htmlcov\index.html``` for Windows

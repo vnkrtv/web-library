@@ -41,7 +41,7 @@
           <tr>
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ composition.name }}</td>
-            <td><a type="button" href="{% url 'main:show_translations' composition.id %}" class="btn btn-primary btn-sm">Показать переводы</a></td>
+            <td><a type="button" href="{% url 'main:translations' composition.id %}" class="btn btn-primary btn-sm">Показать переводы</a></td>
             <td><a type="button" href="#" data-modal="translation-modal" onclick="setComposition({{ composition.id }}, '{{ composition.name }}')" class="btn btn-secondary btn-sm js-open-modal">Добавить перевод</a></td>
           </tr>
           {% endfor %}
@@ -59,11 +59,6 @@
     <form action="{{ request.path }}" method="post">
     {% csrf_token %}
       <div>
-        <label for="{{ form.translation_author.id_for_label }}">Автор перевода<br>
-        {{ form.translation_author }}
-        </label>                
-      </div>
-      <div>
         <label for="{{ form.lang.id_for_label }}">Язык перевода<br>
         {{ form.lang }}
         </label>
@@ -73,13 +68,16 @@
         {{ form.text }}
         </label>
       </div>
-      <input type="hidden" id="composition_id" name="composition_id" value="">                   
+      <input type="hidden" id="composition_id" name="composition_id" value="">
+      <input type="hidden" name="author_id" value="{{ request.user.id }}">                   
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary js-modal-close">Отмена</button>
         <input type="submit" name="add_translation" value="Добавить" class="btn btn-outline-primary my-2">
       </div>
     </form>
 </div>
+
+<div class="overlay js-overlay-modal"></div>
 
 <script src="{% static 'main/js/compositions.js' %}"></script>
 

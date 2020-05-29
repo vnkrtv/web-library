@@ -12,13 +12,13 @@ class BaseForm(forms.Form):
 
 
 class AuthorForm(BaseForm):
-    name = forms.CharField(label='Имя', max_length=100, required=True)
+    name = forms.CharField(label='Имя', max_length=100)
     info = forms.CharField(label='Справка', widget=forms.Textarea)
-    image = forms.ImageField(label='Фотография')
+    image = forms.ImageField(label='Фотография', required=False)
 
 
 class CompositionForm(BaseForm):
-    author = forms.ChoiceField(label='Автор', choices=Author.get_names())
+    author = forms.ModelChoiceField(label='Автор', queryset=Author.objects.all())
     name = forms.CharField(label='Название')
     text = forms.CharField(label='Оригинал', widget=forms.Textarea)
     lang = forms.ChoiceField(label='Язык оригинала', choices=LANGUAGES)
@@ -32,7 +32,6 @@ class CompositionForm(BaseForm):
 
 
 class TranslationForm(BaseForm):
-    translation_author = forms.CharField(label='Автор перевода')
     text = forms.CharField(label='Текст перевода', widget=forms.Textarea)
     lang = forms.ChoiceField(label='Язык перевода', choices=LANGUAGES)
 
