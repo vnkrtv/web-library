@@ -1,3 +1,10 @@
+# pylint: disable=too-few-public-methods, no-member, missing-function-docstring, missing-class-docstring
+"""
+App models:
+- Author - instance of composition's author
+- Composition - instance of composition that can have translation
+- Translation - Instance of composition's translation
+"""
 from django.db import models
 from django.conf import settings
 
@@ -8,6 +15,7 @@ LANGUAGES = [
         ('fr', 'Французский')
     ]
 
+
 class Author(models.Model):
     name = models.CharField('Автор', max_length=100)
     info = models.TextField('Биография', default='')
@@ -17,7 +25,7 @@ class Author(models.Model):
         return f'<Author: {self.name}>'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
     class Meta:
         verbose_name = 'Автор'
@@ -37,7 +45,7 @@ class Composition(models.Model):
         return f'<Composition: {self.name}>'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
     @staticmethod
     def get_by_author(author_id: int) -> list:

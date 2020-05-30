@@ -20,7 +20,19 @@ Collects container with app, configure it and configure docker-compose. If allow
 
 ### Testing    
 Run all tests with coverage by running (venv must be activated):   
-- ```coverage run quizer/manage.py test main```
+- ```coverage run library/manage.py test main```
+
+#### pylint   
+- main/models.py:  
+```Your code has been rated at 10/10```  
+- main/views.py:  
+```Your code has been rated at 10/10```  
+- main/tests.py:  
+```Your code has been rated at 10/10```
+- main/decorators.py:  
+```Your code has been rated at 10/10```
+- main/forms.py:  
+```Your code has been rated at 10/10``` 
 
 #### coverage   
 ```

@@ -1,3 +1,5 @@
+# pylint: disable=no-member
+"""Web-library backend"""
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -9,15 +11,18 @@ from .forms import AuthorForm, CompositionForm, TranslationForm
 
 
 class IndexView(View):
+    """Main page view - '/'"""
     template = 'main/main.html'
     title = 'Главная страница | Библиотека'
     context = {}
 
     @method_decorator(unauthenticated_user)
     def dispatch(self, *args, **kwargs):
+        """Displays page for authenticated users only"""
         return super().dispatch(*args, **kwargs)
 
     def add_author(self):
+        """Add author to DB"""
         author_form = self.context['author_form']
         if author_form.is_valid():
             name = author_form.cleaned_data["name"]
@@ -30,6 +35,7 @@ class IndexView(View):
             self.context['error'] = 'Форма некоректно заполнена.'
 
     def add_composition(self):
+        """Add composition to DB"""
         comp_form = self.context['comp_form']
         if comp_form.is_valid():
             name = comp_form.cleaned_data["name"]
@@ -43,6 +49,7 @@ class IndexView(View):
             self.context['error'] = 'Форма некоректно заполнена.'
 
     def get(self, request):
+        """Main page - get method"""
         self.context = {
             'title': self.title,
             'authors': Author.objects.all(),
@@ -52,6 +59,7 @@ class IndexView(View):
         return render(request, self.template, self.context)
 
     def post(self, request):
+        """Main page - post method"""
         self.context = {
             'title': self.title,
             'authors': Author.objects.all(),
@@ -66,15 +74,18 @@ class IndexView(View):
 
 
 class CompositionsView(View):
+    """Compositions page view - 'composition/<composition_id>'"""
     template = 'main/compositions.html'
     title = 'Главная страница | Библиотека'
     context = {}
 
     @method_decorator(unauthenticated_user)
     def dispatch(self, *args, **kwargs):
+        """Displays page for authenticated users only"""
         return super().dispatch(*args, **kwargs)
 
     def add_translation(self, request):
+        """Add translation to DB"""
         form = self.context['form']
         if form.is_valid():
             composition = Composition.objects.get(id=request.POST['composition_id'])
@@ -89,6 +100,7 @@ class CompositionsView(View):
             self.context['error'] = 'Форма некоректно заполнена.'
 
     def get(self, request, author_id):
+        """Compositions page - get method"""
         form = TranslationForm()
         self.context = {
             'title': f'{Author.objects.get(id=author_id)} | Библиотека',
@@ -99,6 +111,7 @@ class CompositionsView(View):
         return render(request, self.template, self.context)
 
     def post(self, request, author_id):
+        """Compositions page - post method"""
         form = TranslationForm(request.POST)
         self.context = {
             'title': f'{Author.objects.get(id=author_id)} | Библиотека',
@@ -113,7 +126,8 @@ class CompositionsView(View):
 
 def login_page(request):
     """
-    In case of successful authorization redirect to get_tests page, else displays login page with error
+    In case of successful authorization redirect to main page
+    else displays login page with error
     """
     logout(request)
     if 'username' not in request.POST or 'password' not in request.POST:
@@ -125,20 +139,23 @@ def login_page(request):
         if user.is_active:
             login(request, user)
             return redirect('/')
-        else:
-            return render(request, 'main/login.html', {'error': 'Ошибка: аккаунт пользователя отключен!'})
-    else:
-        return render(request, 'main/login.html', {'error': 'Ошибка: неправильное имя пользователя или пароль!'})
+        context = {'error': 'Ошибка: аккаунт пользователя отключен!'}
+        return render(request, 'main/login.html', context)
+    context = {'error': 'Ошибка: неправильное имя пользователя или пароль!'}
+    return render(request, 'main/login.html', context)
 
 
 @unauthenticated_user
 def search(request):
+    """
+    Search compositions by string query
+    """
     if request.method == "POST":
-        q = request.POST['q']
+        query = request.POST['q']
         context = {
             'title': 'Результаты поиска | Библиотека',
-            'compositions': Composition.objects.filter(name__contains=q),
-            'q': q
+            'compositions': Composition.objects.filter(name__contains=query),
+            'q': query
         }
         return render(request, 'main/search.html', context)
 
@@ -147,6 +164,9 @@ def search(request):
 
 @unauthenticated_user
 def translations(request, composition_id):
+    """
+    Displays all Composition(id=composition_id)'s translations
+    """
     context = {
         'title': 'Переводы | Библиотека',
         'translations': Translation.get_by_composition(composition_id),
@@ -157,6 +177,9 @@ def translations(request, composition_id):
 
 @unauthenticated_user
 def show_translation(request, translation_id):
+    """
+    Displays Translation(id=translation_id)
+    """
     translation = Translation.objects.get(id=translation_id)
     context = {
         'title': 'Перевод | Библиотека',

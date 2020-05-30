@@ -1,3 +1,11 @@
+# pylint: disable=too-few-public-methods, no-member, missing-function-docstring, missing-class-docstring
+"""
+App models' forms:
+- BaseForm - set 'form-control' class for all fields (except 'image' field)
+- AuthorForm
+- CompositionForm
+- TranslationForm
+"""
 from django import forms
 from .models import LANGUAGES, Author
 

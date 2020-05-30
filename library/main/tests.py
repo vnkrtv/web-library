@@ -1,8 +1,5 @@
-# pylint: disable=import-error, invalid-name, too-few-public-methods, relative-beyond-top-level
-"""
-Main app tests, covered views.py
-"""
-import os
+# pylint: disable=no-member
+"""Main app tests, covered views.py"""
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -63,7 +60,7 @@ class RedirectTest(MainTest):
 
     def test_redirect(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test redirection of unauthenticated users
         """
         client = Client()
         response = client.post(reverse('main:index'), follow=True)
@@ -80,6 +77,8 @@ class MainPageTest(MainTest):
         """
         Add objects to temporary test database:
         - 'user' user
+        - 2 authors
+        Also login user
         """
         super().setUp()
         Author.objects.create(
@@ -100,7 +99,7 @@ class MainPageTest(MainTest):
 
     def test_get_method(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for get method
         """
         response = self.client.get(reverse('main:index'), follow=True)
         self.assertEqual(response.status_code, 200)
@@ -109,7 +108,7 @@ class MainPageTest(MainTest):
 
     def test_add_author_success(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for successful adding author
         """
         response = self.client.post(reverse('main:index'), {
             'add_author': ['Добавить'],
@@ -128,7 +127,7 @@ class MainPageTest(MainTest):
 
     def test_add_author_fail(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for unsuccessful adding author
         """
         response = self.client.post(reverse('main:index'), {
             'add_author': ['Добавить'],
@@ -143,7 +142,7 @@ class MainPageTest(MainTest):
 
     def test_add_composition_success(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for successful adding composition
         """
         response = self.client.post(reverse('main:index'), {
             'add_composition': ['Добавить'],
@@ -164,7 +163,7 @@ class MainPageTest(MainTest):
 
     def test_add_composition_fail(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for unsuccessful adding composition
         """
         response = self.client.post(reverse('main:index'), {
             'add_composition': ['Добавить'],
@@ -188,6 +187,9 @@ class CompositionsPageTest(MainTest):
         """
         Add objects to temporary test database:
         - 'user' user
+        - 'Cool author' author
+        - 2 compositions
+        Also login user
         """
         super().setUp()
         self.author = Author.objects.create(
@@ -217,16 +219,17 @@ class CompositionsPageTest(MainTest):
 
     def test_get_method(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for get method
         """
-        response = self.client.get(reverse('main:compositions', args=(self.author.id,)), follow=True)
+        response = self.client.get(reverse('main:compositions', args=(self.author.id,)),
+                                   follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'First composition')
         self.assertContains(response, 'Second composition')
 
     def test_add_translation_success(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for successful adding translation
         """
         response = self.client.post(reverse('main:compositions', args=(self.author.id,)), {
             'add_translation': ['Добавить'],
@@ -246,7 +249,7 @@ class CompositionsPageTest(MainTest):
 
     def test_add_translation_fail(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for unsuccessful adding translation
         """
         response = self.client.post(reverse('main:compositions', args=(self.author.id,)), {
             'add_translation': ['Добавить'],
@@ -271,6 +274,10 @@ class TranslationsPageTest(MainTest):
         """
         Add objects to temporary test database:
         - 'user' user
+        - 'Cool author' author
+        - 'First composition' composition
+        - 2 translations
+        Also login user
         """
         super().setUp()
         self.author = Author.objects.create(
@@ -305,9 +312,10 @@ class TranslationsPageTest(MainTest):
 
     def test_get_method(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for get method
         """
-        response = self.client.get(reverse('main:translations', args=(self.composition.id,)), follow=True)
+        response = self.client.get(reverse('main:translations', args=(self.composition.id,)),
+                                   follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Русский')
         self.assertContains(response, 'Французский')
@@ -321,9 +329,10 @@ class ShowTranslationPageTest(TranslationsPageTest):
 
     def test_get_method(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for get method
         """
-        response = self.client.get(reverse('main:show_translation', args=(self.translation.id,)), follow=True)
+        response = self.client.get(reverse('main:show_translation', args=(self.translation.id,)),
+                                   follow=True)
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, 'Перевод')
@@ -340,7 +349,7 @@ class SearchPageTest(TranslationsPageTest):
 
     def test_get_method(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for get method
         """
         response = self.client.get(reverse('main:search'), follow=True)
         self.assertEqual(response.status_code, 200)
@@ -350,7 +359,7 @@ class SearchPageTest(TranslationsPageTest):
 
     def test_search_success(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for successful search result page
         """
         response = self.client.post(reverse('main:search'), {
             'q': [self.composition.name]
@@ -358,12 +367,12 @@ class SearchPageTest(TranslationsPageTest):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Результаты поиска')
-        self.assertContains(response, f"По запросу '{self.composition.name}' были найдены следующие произведения:")
+        self.assertContains(response, f"По запросу '{self.composition.name}' были найдены")
         self.assertContains(response, self.composition.name)
 
     def test_search_fail(self) -> None:
         """
-        Tests for redirection of unauthenticated users
+        Test for unsuccessful search result page
         """
         response = self.client.post(reverse('main:search'), {
             'q': ['Not found 404']
