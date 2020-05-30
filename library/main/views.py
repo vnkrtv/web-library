@@ -21,6 +21,14 @@ class IndexView(View):
         """Displays page for authenticated users only"""
         return super().dispatch(*args, **kwargs)
 
+    @staticmethod
+    def get_authors_list():
+        """Get list of tuples each containing 1-3 Authors"""
+        authors = Author.objects.all()
+        authors_list = list(zip(*[iter(authors)] * 3))
+        authors_list += [authors[len(authors_list) * 3:]]
+        return authors_list
+
     def add_author(self):
         """Add author to DB"""
         author_form = self.context['author_form']
@@ -52,7 +60,7 @@ class IndexView(View):
         """Main page - get method"""
         self.context = {
             'title': self.title,
-            'authors': Author.objects.all(),
+            'authors_list': IndexView.get_authors_list(),
             'author_form': AuthorForm(),
             'comp_form': CompositionForm()
         }
@@ -62,7 +70,7 @@ class IndexView(View):
         """Main page - post method"""
         self.context = {
             'title': self.title,
-            'authors': Author.objects.all(),
+            'authors_list': IndexView.get_authors_list(),
             'author_form': AuthorForm(request.POST, request.FILES),
             'comp_form': CompositionForm(request.POST)
         }
