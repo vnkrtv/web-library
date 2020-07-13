@@ -29,11 +29,11 @@ jobs:
       - name: Configure app
         run: |
           echo SECRET_KEY >> cfg
-          echo NEO4J_PWD >> cfg
-          echo n >> cfg
+          echo >> cfg
+          echo no >> cfg
           ./deploy/deploy_containers < cfg
-          entrypoint="$(echo "$(cat deploy/entrypoint)")"
-          echo "${entrypoint/manage.py runserver 0.0.0.0:80/runtests.py}" > deploy/entrypoint
+          entrypoint="$(echo "$(cat deploy/entrypoint.sh)")"
+          echo "${entrypoint/runserver 0.0.0.0:8080/test main}" > deploy/entrypoint.sh
       - name: Build docker container & running tests
         run: |
           docker-compose run web sh -c "echo Passed all tests!"

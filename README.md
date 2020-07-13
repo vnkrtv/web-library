@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/LeadNess/web-library.svg?branch=master)](https://travis-ci.com/LeadNess/web-library)
 ![Docker](https://github.com/LeadNess/web-library/workflows/Docker/badge.svg)
+![Ubuntu](https://github.com/LeadNess/web-library/workflows/Ubuntu/badge.svg)
 
 
 ### Description  

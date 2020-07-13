@@ -6,7 +6,8 @@ RUN apk update \
     && apk add postgresql \
     && apk add postgresql-dev \
     && apk add jpeg-dev zlib-dev libjpeg \
-    && apk del build-deps
+    && apk del build-deps \
+    && pip install --upgrade pip
 
 COPY requirements.txt /code/
 RUN pip install -r code/requirements.txt
