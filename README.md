@@ -1,6 +1,7 @@
 # web-library
 
 [![Build Status](https://travis-ci.com/LeadNess/web-library.svg?branch=master)](https://travis-ci.com/LeadNess/web-library)
+![Docker](https://github.com/LeadNess/web-library/workflows/Docker/badge.svg)
 
 
 ### Description  
@@ -25,19 +26,6 @@ Collects container with app, configure it and configure docker-compose. If allow
 Run all tests with coverage by running (venv must be activated):   
 - ```coverage run library/manage.py test main```
 
-#### pylint   
-- main/models.py:  
-```Your code has been rated at 10/10```  
-- main/views.py:  
-```Your code has been rated at 10/10```  
-- main/tests.py:  
-```Your code has been rated at 10/10```
-- main/decorators.py:  
-```Your code has been rated at 10/10```
-- main/forms.py:  
-```Your code has been rated at 10/10``` 
-
-#### coverage   
 ```
 Name                         Stmts   Miss  Cover
 ------------------------------------------------
@@ -52,3 +40,8 @@ For detailed report run:
 - ```coverage report```  
 - ```coverage html```  
 - ```x-www-browser ./htmlcov/index.html``` for Linux or ```Invoke-Expression .\htmlcov\index.html``` for Windows
+
+### Code inspection
+
+Run ```pylint library/main/*.py```:  
+- ```Your code has been rated at 10.00/10```
