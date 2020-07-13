@@ -1,5 +1,8 @@
 # web-library
 
+[![Build Status](https://travis-ci.com/LeadNess/web-library.svg?branch=master)](https://travis-ci.com/LeadNess/web-library)
+
+
 ### Description  
 
 App for adding and storing translations of various compositions.  

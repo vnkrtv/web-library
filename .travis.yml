@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - "3.6.8"
+
+services:
+  - docker
+
+before_script:
+  - pip install docker-compose
+  - echo SECRET_KEY >> cfg
+  - echo >> cfg
+  - ./deploy/deploy_containers < cfg
+  - entrypoint="$(echo "$(cat deploy/entrypoint.sh)")"
+  - echo "${entrypoint/runserver 0.0.0.0:8080/test main}" > deploy/entrypoint.sh
+
+script:
+  - docker-compose run web sh -c "echo Passed all tests!"
