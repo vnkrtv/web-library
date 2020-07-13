@@ -35,6 +35,10 @@ jobs:
           echo "${settings/172.17.0.2/localhost}" > library/library/settings.py
           python -m venv venv
           ./venv/bin/python -m pip install -r requirements.txt
+      - name: Applying database migrations
+        run: |
+          ./venv/bin/python ./library/manage.py makemigrations
+          ./venv/bin/python ./library/manage.py migrate
       - name: Running tests
         run: |
           ./venv/bin/python ./library/manage.py test main
