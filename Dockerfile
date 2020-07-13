@@ -7,11 +7,11 @@ RUN apk update \
     && apk add postgresql-dev \
     && apk add zlib libjpeg jpeg-dev zlib-dev \
     && pip install --upgrade pip \
-    && pip install psycopg2 Pillow \
-    && apk del --no-cache build-deps
+    && pip install psycopg2 Pillow
 
 COPY requirements.txt /code/
-RUN pip install -r code/requirements.txt
+RUN pip install -r code/requirements.txt \
+    && apk del --no-cache build-deps
 
 COPY library /library
 COPY deploy/container_settings /library/library/settings.py
