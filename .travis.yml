@@ -10,6 +10,7 @@ before_script:
   - pip install docker-compose
   - echo SECRET_KEY >> cfg
   - echo >> cfg
+  - echo no >> cfg
   - ./deploy/deploy_containers < cfg
   - entrypoint="$(echo "$(cat deploy/entrypoint.sh)")"
   - echo "${entrypoint/runserver 0.0.0.0:8080/test main}" > deploy/entrypoint.sh
