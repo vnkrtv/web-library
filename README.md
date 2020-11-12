@@ -1,8 +1,8 @@
 # web-library
 
-[![Build Status](https://travis-ci.com/LeadNess/web-library.svg?branch=master)](https://travis-ci.com/LeadNess/web-library)
-![Docker](https://github.com/LeadNess/web-library/workflows/Docker/badge.svg)
-![Ubuntu](https://github.com/LeadNess/web-library/workflows/Ubuntu/badge.svg)
+[![Build Status](https://travis-ci.com/vnkrtv/web-library.svg?branch=master)](https://travis-ci.com/vnkrtv/web-library)
+![Docker](https://github.com/vnkrtv/web-library/workflows/Docker/badge.svg)
+![Ubuntu](https://github.com/vnkrtv/web-library/workflows/Ubuntu/badge.svg)
 
 
 ### Description  
@@ -17,7 +17,7 @@ All data stored in PostgreSQL, web app implemented in Django.
 
 ### Deploying
 
-- ```git clone https://github.com/LeadNess/web-library.git```
+- ```git clone https://github.com/vnkrtv/web-library.git```
 - ```cd web-library```
 - ```./deploy/deploy_containers```
 
